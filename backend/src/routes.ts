@@ -65,8 +65,11 @@ export async function weatherMatrix_routes(app: FastifyInstance): Promise<void> 
 			// }
 		});
 		console.log(location)
-		let icons = await(getForecastIcons(location[0].latitude, location[0].longitude));
-		// console.log(icons)
+		let icons:any = [];
+		for (let i = 0; i< location.length; i++) {
+			icons[i] = await (getForecastIcons(location[i].latitude, location[i].longitude));
+		}
+		console.log(icons)
 
 		reply.send(icons);
 	});
