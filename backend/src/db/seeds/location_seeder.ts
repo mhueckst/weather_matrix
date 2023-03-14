@@ -23,8 +23,8 @@ export class LocationSeeder extends Seeder {
 		for (let i = 0; i < 10; i++) {
 			let loc = new Location();
 			loc.name = "location" + i;
-			loc.latitude = "latitude" + i;
-			loc.longitude = "longitude" + i;
+			loc.latitude = "38.8894" + i;
+			loc.longitude = "-77.0352" + i;
 			await loc.save();
 			app.log.info("Seeded location " + i);
 		}

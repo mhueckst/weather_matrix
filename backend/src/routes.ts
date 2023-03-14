@@ -3,6 +3,7 @@ import cors from "cors";
 import {FastifyInstance, FastifyReply, FastifyRequest, RouteShorthandOptions} from "fastify";
 import {Location} from "./db/models/location";
 import {ILike, LessThan, Not} from "typeorm";
+import {getForecastIcons} from "./lib/weatherService";
 
 /**
  * App plugin where we construct our routes
@@ -23,6 +24,7 @@ export async function weatherMatrix_routes(app: FastifyInstance): Promise<void> 
 		reply.send("GET Test");
 	});
 
+
 	/**
 	 * Route getting all locations to test location seeder
 	 * @name get/locations
@@ -36,73 +38,38 @@ export async function weatherMatrix_routes(app: FastifyInstance): Promise<void> 
 	ACTUAL APP ROUTES:
 	***********************************************
 	For testing 'get all locations' from DB
-	*/
-	const baseURL = "https://api.weather.gov/points/";
-	const forecastURL = "https://api.weather.gov/gridpoints/";
-	// need to append forecast office then gridpoints then forecast to forecastURL for each loc:
-	// ex:  https://api.weather.gov/gridpoints/LWX/96,70/forecast
 
 	/*
 	https://weather-gov.github.io/api/general-faqs
 	first just get forecast at one location:
 	(0. get lat long from DB and append onto baseURL for query)
 	1. query baseURL with lat,long appended for location JSON
-	2. parse location JSON -> properties: for 'cwa' and 'gridX', 'gridY'
-	3. query forecastURL with above appended (see example above) for forecast JSON
+	2. parse location JSON -> properties: for forecast URL
+	3. query forecastURL for forecast JSON
 	4. get periods[i].icon for forecast period (7 days/nights)
 	5. (put the above in a for loop, so it returns all forecasts for all locations in table)
 	*/
 
 	/**
-	 * Route getting location's initial lat/long URL from lat/long in database
+	 * Route getting icons for all forecast locations
+	 * TODO: get all locations forecasts- currently just 'location0' to iron out API call
 	 */
-	const location0 = app.get("/lat_long", async(request: FastifyRequest, reply: FastifyReply) => {
-		let location0 = await app.db.location.find({
+	app.get("/lat_long", async(request: FastifyRequest, reply: FastifyReply) => {
+		let location = await app.db.location.find({
 			select: {
 				latitude: true,
 				longitude: true
-			},
-			where: {
-				name: "location0"
 			}
+			// where: {
+			// 	name: "location0"
+			// }
 		});
-		// reply.send(location0);
-		let replyURL = baseURL + location0[0].latitude + "," + location0[0].longitude;
-		reply.send(replyURL);
+		console.log(location)
+		let icons = await(getForecastIcons(location[0].latitude, location[0].longitude));
+		// console.log(icons)
 
+		reply.send(icons);
 	});
-
-
-	// ************
-	// No longer querying our DB for anything: Does this code belong here?
-	const testURL = "https://api.weather.gov/points/38.8894,-77.0352";
-
-	// Build forecast URL from lat/long URL query's json
-	const forecastQueryURL = async function getGeoJSON() {
-		const response = await fetch(testURL);
-		const JSON = await response.json();
-		const cwa = JSON.properties.cwa;
-		const gridX = JSON.properties.gridX;
-		const gridY = JSON.properties.gridY;
-		let forecastQueryURL = forecastURL + cwa + "/" + gridX + "," + gridY + "/forecast";
-		return forecastQueryURL;
-	};
-
-	app.get("/forecasts", async(request: FastifyRequest, reply: FastifyReply) => {
-		//get array of weather periods and the icons for each at the forecastQueryURL:
-
-		const response = await fetch(forecastQueryURL);
-		const JSON = await response.json();
-		reply.send();
-	});
-
-	// const geoJSON = fetch(testURL).then(res => res.json());
-
-	// const json = geoJSON();
-	// let geoJSON = app.get(`/${testURL}`, async(request: FastifyRequest, reply: FastifyReply) => {
-	//
-	// })
-
 
 
 
