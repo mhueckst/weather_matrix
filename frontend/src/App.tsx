@@ -6,6 +6,7 @@ import {Icons, Locations} from "./Components";
 function App() {
     return (
         <div className = "App">
+            <h1>PNW Weather Matrix</h1>
             <Icons/>
             <Locations/>
         </div>
