@@ -45,10 +45,10 @@ describe("testing the test framework itself", () => {
 
 describe("Route testing", () => {
 
-	it("gets all lcoations from users table pre-seed", async () => {
+	it("gets all locations from users table pre-seed", async () => {
 		const response = await app.inject({
 			method: "GET",
-			url: "/locations",
+			url: "/locationsTest",
 		});
 
 		expect(response.statusCode)

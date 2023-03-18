@@ -3,7 +3,6 @@
  * Returns an array of forecast icons 
  */
 
-
 // Build forecast URL from lat/long URL query's json
 
 export async function getForecastIcons(lat: any, long: any) {

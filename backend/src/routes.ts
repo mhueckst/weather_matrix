@@ -12,7 +12,6 @@ import {getForecastIcons} from "./lib/weatherService";
 export async function weatherMatrix_routes(app: FastifyInstance): Promise<void> {
 
 	// Middleware
-	// TODO: Refactor this in favor of fastify-cors
 	app.use(cors());
 
 	/**
@@ -29,7 +28,7 @@ export async function weatherMatrix_routes(app: FastifyInstance): Promise<void> 
 	 * Route getting all locations to test location seeder
 	 * @name get/locations
 	 */
-	app.get("/locations", async(request: FastifyRequest, reply: FastifyReply) => {
+	app.get("/locationsTest", async(request: FastifyRequest, reply: FastifyReply) => {
 		let locations = await app.db.location.find();
 		reply.send(locations);
 	});
@@ -37,18 +36,9 @@ export async function weatherMatrix_routes(app: FastifyInstance): Promise<void> 
 	/*
 	ACTUAL APP ROUTES:
 	***********************************************
-	For testing 'get all locations' from DB
-
-	/*
+	For API info/usage:
 	https://weather-gov.github.io/api/general-faqs
-	first just get forecast at one location:
-	(0. get lat long from DB and append onto baseURL for query)
-	1. query baseURL with lat,long appended for location JSON
-	2. parse location JSON -> properties: for forecast URL
-	3. query forecastURL for forecast JSON
-	4. get periods[i].icon for forecast period (7 days/nights)
-	5. (put the above in a for loop, so it returns all forecasts for all locations in table)
-	*/
+	 */
 
 	/**
 	 * Route getting icons for all forecast locations
@@ -73,7 +63,19 @@ export async function weatherMatrix_routes(app: FastifyInstance): Promise<void> 
 		reply.send(icons);
 	});
 
-
+	/**
+	 * Route getting all locations to test location seeder
+	 * @name get/locations
+	 */
+	app.get("/location_names", async(request: FastifyRequest, reply: FastifyReply) => {
+		let locations = await app.db.location.find({
+			select: {
+				name: true
+			}
+		});
+		console.log(locations)
+		reply.send(locations);
+	});
 
 
 
