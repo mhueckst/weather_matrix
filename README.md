@@ -3,7 +3,7 @@
 
 > Clone repository
 > Install dependencies (cd backend/ && pnpm install)
-> Start database (docker compose up postgres)
+> Start database (docker start postgres)
 > Seed Database (cd backend/ && pnpm seed)
 > Test backend ( cd backend/ && pnpm test)
 > Start backend (cd backend/ && pnpm dev)

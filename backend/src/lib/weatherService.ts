@@ -5,7 +5,6 @@
 
 
 // Build forecast URL from lat/long URL query's json
-import {FastifyReply, FastifyRequest} from "fastify";
 
 export async function getForecastIcons(lat: any, long: any) {
 	const baseURL = "https://api.weather.gov/points/";
@@ -26,11 +25,3 @@ export async function getForecastIcons(lat: any, long: any) {
 	}
 	return icons;
 }
-
-
-// const geoJSON = fetch(testURL).then(res => res.json());
-
-// const json = geoJSON();
-// let geoJSON = app.get(`/${testURL}`, async(request: FastifyRequest, reply: FastifyReply) => {
-//
-// })

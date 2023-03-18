@@ -52,7 +52,6 @@ export async function weatherMatrix_routes(app: FastifyInstance): Promise<void> 
 
 	/**
 	 * Route getting icons for all forecast locations
-	 * TODO: get all locations forecasts- currently just 'location0' to iron out API call
 	 */
 	app.get("/lat_long", async(request: FastifyRequest, reply: FastifyReply) => {
 		let location = await app.db.location.find({
