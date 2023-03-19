@@ -3,7 +3,6 @@ import axios from "axios";
 
 export const Icons = () => {
     const [icons, setIcons] = useState([]);
-    const [locations, setLocations] = useState([]);
 
     useEffect(() => {
         const fetchIcons = async() => {

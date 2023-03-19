@@ -1,17 +1,22 @@
 from django.http import HttpResponse
-# from models import Location
 from . import models
-
+from . import location_list
+import datetime
 def index(request):
-    # return HttpResponse("Hello world, you're at the dbSeed index")
-    if request.method == "GET":
-        locations = models.Location.objects.values('name', 'latitude', 'longitude')
-        # location = models.Location.objects.create(
-        #     name="Mt Hood", lat=45.373, long=-121.696)
-        # location.save()
+    # if request.method == "GET":
+    ct = str(datetime.datetime.now())
+    list = location_list.create_list()
+
+    for i in list:
+        location = models.Location.objects.create(
+            name=i.name, latitude=i.lat, longitude=i.long, created_at=ct, updated_at=ct)
+    # location = models.Location.objects.create(
+    #     name="Mt Hood", latitude=45.373, longitude=-121.696, created_at ="2023-03-19 21:45:09.257563", updated_at="2023-03-19 21:45:09.257563")
+        location.save()
+    locations = models.Location.objects.values('name', 'latitude', 'longitude')
 
 
-        return HttpResponse(locations)
+    return HttpResponse(locations)
 
     'Mt. Hood, OR', 45.37362, -121.69603
     'Mt Rainier, WA', 46.85321, -121.76027
