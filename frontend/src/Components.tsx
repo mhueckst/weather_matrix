@@ -15,14 +15,14 @@ export const Icons = () => {
     // add code to get locations 'array' to use at each
     return (
         <div>
-        {icons.map(() =>
+        {icons.map((icon, index) =>
         <ul id="icons">
             {icons.map((icon, index) => <img src={icon[index]}/>)}
-        </ul>)}
+        </ul>
+        )}
         </div>
-
     );
-    }
+}
 
 export const Locations = () => {
     const [locations, setLocations] = useState([]);
