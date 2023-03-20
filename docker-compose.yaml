@@ -17,12 +17,12 @@ services:
     container_name: micro
     build: ./backend/microservice/micro
 #    command: python manage.py runserver
-    volumes:
-      - .:/app
+#    volumes:
+#      - ./microservice:/app
     ports:
       - "8000:8000"
     environment:
-      - POSTGRES_NAME=weatherMatrix
+      - POSTGRES_DB=weatherMatrix
       - POSTGRES_USER=weatherMatrix
       - POSTGRES_PASSWORD=weatherMatrix
     depends_on:

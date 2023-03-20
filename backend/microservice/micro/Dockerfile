@@ -1,16 +1,19 @@
 FROM python:3.10-alpine
 
-WORKDIR /app/
+#COPY . /app
+
+
+WORKDIR /app
+COPY . .
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
+#ENV
 
-RUN pip install --upgrade pip
-COPY ./requirements.txt /app/
+#COPY ./requirements.txt /app
 RUN pip install -r requirements.txt
 
-COPY . /app/
 
 EXPOSE 8000
 
-CMD ["python", "manage.py", "runserver"]
+CMD ["python3", "manage.py", "runserver" ,"0.0.0.0:8000"]
