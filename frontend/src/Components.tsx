@@ -15,7 +15,7 @@ export const Icons = () => {
     // add code to get locations 'array' to use at each
     return (
         <div>
-        {icons.map((icon, index) =>
+        {icons.map(() =>
         <ul id="icons">
             {icons.map((icon, index) => <img src={icon[index]}/>)}
         </ul>
@@ -37,7 +37,7 @@ export const Locations = () => {
 
     // add code to get locations 'array' to use at each
     return (
-        <div>
+        <div id="names">
             <ul id="names">
                 {locations.map((location: {name: string, id: string}, index) => <li key={index}>{location.name}</li>)}
             </ul>
