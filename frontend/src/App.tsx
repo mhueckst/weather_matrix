@@ -12,21 +12,24 @@ function App() {
     // @ts-ignore
     return (
         <div className = "App">
+
+
+            <h1>PNW Weather Matrix</h1>
             {!isAuthenticated ? (
-                <div>
-                    <p style={{ fontSize: "1.5rem"}}>Please Login.</p>
-                     <LoginButton/>
-                </div>
+                    <div>
+                        <p style={{ fontSize: "1.5rem"}}>Please Login.</p>
+                        <LoginButton/>
+                    </div>
                 ) :
                 <div>
                     <LogoutButton/>
                     {/*<Profile/>*/}
-                </div>}
-
-            <h1>PNW Weather Matrix</h1>
+                </div>
+            }
             <Seeder/>
             <Icons/>
             <Locations/>
+
         </div>
     )
 }

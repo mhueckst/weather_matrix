@@ -13,6 +13,9 @@ export default defineConfig({
     },
     build: {
         outDir: './build',
+        // rollupOptions: {
+        //     external: "/@auth0/auth0-react"
+        // }
     },
     base: "./",
     server: {
