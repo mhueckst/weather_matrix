@@ -2,6 +2,8 @@ from django.http import HttpResponse
 from . import models
 from . import location_list
 import datetime
+
+
 def index(request):
     # if request.method == "GET":
 

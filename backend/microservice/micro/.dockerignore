@@ -1,0 +1,6 @@
+#micro/asgi.py
+#micro/wsgi.py
+#db.sqlite3
+#dbSeed/admin.py
+#dbSeed/tests.py
+##micro/settings.py

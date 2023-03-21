@@ -1,5 +1,16 @@
 version: '3'
 services:
+
+  frontend:
+    container_name: frontend
+    build: ./frontend/
+    restart: always
+    ports:
+      - "88:5173" # We need to map here for convenience, so we don't conflict with a potential possible local server
+    environment:
+      - VITE_BACKEND_IP=backend
+      - VITE_BACKEND_PORT=8080
+
   postgres:
     container_name: postgres
     image: postgres:15-alpine
@@ -16,9 +27,6 @@ services:
   micro:
     container_name: micro
     build: ./backend/microservice/micro
-#    command: python manage.py runserver
-#    volumes:
-#      - ./microservice:/app
     ports:
       - "8000:8000"
     environment:
@@ -27,21 +35,26 @@ services:
       - POSTGRES_PASSWORD=weatherMatrix
     depends_on:
       - postgres
-    #network_mode: host
-#  backend:
-#    container_name: backend
-#    build: ./backend/
-#    restart: always
-#    ports:
-#      - "8080:8080"
-#    environment:
-#      # Vite takes care of most of this for us, but it's good practice for other backends
-#      - VITE_DB_HOST=postgres
-#      - VITE_IP_ADDR=0.0.0.0
-#      - VITE_PORT=8080
-#      - VITE_LOGS_DIR=logs/
-#    depends_on: #This is a lie
-#      - postgres
+
+  backend:
+    container_name: backend
+    build: ./backend/
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      # Vite takes care of most of this for us, but it's good practice for other backends
+      - VITE_DB_HOST=postgres
+      - VITE_IP_ADDR=0.0.0.0
+      - VITE_PORT=8080
+      - VITE_LOGS_DIR=logs/
+      - VITE_DB_USER=weatherMatrix
+      - VITE_DB_PASS=weatherMatrix
+      - VITE_DB_NAME=weatherMatrix
+    depends_on: #This is a lie
+      - postgres
 volumes:
   db:
     driver: local
+
+
