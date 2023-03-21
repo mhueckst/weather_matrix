@@ -47,7 +47,8 @@ export async function weatherMatrix_routes(app: FastifyInstance): Promise<void> 
 		let location = await app.db.location.find({
 			select: {
 				latitude: true,
-				longitude: true
+				longitude: true,
+				name: true
 			}
 			// where: {
 			// 	name: "location0"

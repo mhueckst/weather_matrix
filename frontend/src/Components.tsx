@@ -62,7 +62,7 @@ export const Seeder = () => {
         seedLocations();
     }, []);
     return (
-        <div id="seeder">
+        <div className="seeder">
         </div>
     );
 }
