@@ -14,6 +14,8 @@ export async function weatherMatrix_routes(app: FastifyInstance): Promise<void> 
 	// Middleware
 	app.use(cors());
 
+	//TEST ROUTES
+	//**************************************
 	/**
 	 * Route replying to /test path for test-testing
 	 * @name get/test
@@ -28,7 +30,7 @@ export async function weatherMatrix_routes(app: FastifyInstance): Promise<void> 
 	 * Route getting all locations to test location seeder
 	 * @name get/locations
 	 */
-	app.get("/locationsTest", async(request: FastifyRequest, reply: FastifyReply) => {
+	app.get("/locationsTest", async (request: FastifyRequest, reply: FastifyReply) => {
 		let locations = await app.db.location.find();
 		reply.send(locations);
 	});
@@ -41,45 +43,58 @@ export async function weatherMatrix_routes(app: FastifyInstance): Promise<void> 
 	 */
 
 	/**
-	 * Route getting icons for all forecast locations
+	 * Route getting name, id, and forecast icon list for all forecast locations in table
 	 */
-	app.get("/lat_long", async(request: FastifyRequest, reply: FastifyReply) => {
+	app.get("/lat_long", async (request: FastifyRequest, reply: FastifyReply) => {
 		let location = await app.db.location.find({
 			select: {
 				latitude: true,
-				longitude: true
+				longitude: true,
+				name: true,
+				id: true
 			}
-			// where: {
-			// 	name: "location0"
-			// }
 		});
-		console.log(location)
-		let icons:any = [];
-		for (let i = 0; i< location.length; i++) {
+		let icons: any = [];
+		for (let i = 0; i < location.length; i++) {
 			icons[i] = await (getForecastIcons(location[i].latitude, location[i].longitude));
 		}
-		console.log(icons)
 
-		reply.send(icons);
+		let object = {
+			id: 0,
+			name: "",
+			icons: [],
+		}
+
+		let objList: any = []
+		for (let i = 0; i < location.length; i++) {
+			let item = Object.create(object)
+			item.id = location[i].id;
+			item.name = location[i].name;
+			item.icons = icons[i];
+			objList.push(item)
+		}
+		console.log(objList)
+		reply.send(objList);
 	});
-
-	/**
-	 * Route getting all locations to test location seeder
-	 * @name get/locations
-	 */
-	app.get("/location_names", async(request: FastifyRequest, reply: FastifyReply) => {
-		let locations = await app.db.location.find({
-			select: {
-				name: true
-			}
-		});
-		console.log(locations)
-		reply.send(locations);
-	});
-
-
 
 }
+	// /**
+	//  * Route getting all locations to test location seeder
+	//  * @name get/locations
+	//  */
+	// app.get("/location_names", async(request: FastifyRequest, reply: FastifyReply) => {
+	// 	let locations = await app.db.location.find({
+	// 		select: {
+	// 			name: true
+	// 		}
+	// 	});
+	// 	console.log(locations)
+	// 	reply.send(locations);
+	// });
+
+
+
+
 
 
 // app.get("/users", async (request: FastifyRequest, reply: FastifyReply) => {

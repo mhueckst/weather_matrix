@@ -17,10 +17,20 @@ export async function getForecastIcons(lat: any, long: any) {
 	const response2 = await fetch(forecastQueryURL);
 	const JSON2 = await response2.json();
 
-	let icons = [];
+	let icon = {
+		icon: "",
+		period: ""
+	}
+
+	let iconList: any = [];
 	let periods = JSON2.properties.periods;
 	for (let i = 0; i < periods.length; i++){
-		icons[i] = periods[i].icon;
+		let item = Object.create(icon)
+		item.icon = periods[i].icon
+		item.period = periods[i].name
+		iconList.push(item)
+		// iconList[i] = periods[i].icon;
 	}
-	return icons;
+
+	return iconList;
 }

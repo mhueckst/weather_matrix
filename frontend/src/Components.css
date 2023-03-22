@@ -1,0 +1,24 @@
+.locations {
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.forecastList {
+    display: flex;
+    /*justify-content: space-between;*/
+    flex-flow: row wrap;
+}
+
+.figure{
+    margin: 0 5px;
+    /*flex-flow: row nowrap;*/
+    /*width: fit-content;*/
+}
+.caption{
+    /*max-width: fit-content;*/
+}
+
+.icon{
+    padding: 1%;
+    height: 5em;
+}
