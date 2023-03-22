@@ -10,7 +10,15 @@ Screenshot:
 # Setup: 
 (All commands are with respect to the root directory of the project)
 
-> Clone repository
-> cd into repository
-> run `docker compose up`
-> go to site URL: http://localhost:88
+- Clone repository
+- cd into repository
+- (No need to copy env files)
+- run `docker compose up`
+- go to site URL: http://localhost:88
+
+# Troubleshooting: 
+- if you get an error about exposing a port < 1024, you can run: 
+`sudo setcap cap_net_bind_service=ep $(which rootlesskit)`
+`systemctl --user restart docker`
+
+
