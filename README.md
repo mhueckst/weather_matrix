@@ -1,10 +1,12 @@
-# Weather Matrix Setup:
+# Weather Matrix:
+This site consolidates the National Weather Service point forecasts for various locations around the Pacific Northwest. 
+Each location has 14 '12hr periods' of forecast data, which corresponds to about a week from the current time. 
+The data is fetched using the api.weather.gov, the NWS forecast API. 
+
+# Setup: 
 (All commands are with respect to the root directory of the project)
 
 > Clone repository
-> Install dependencies (cd backend/ && pnpm install)
-> Start database (docker start postgres)
-> Seed Database (cd backend/ && pnpm seed)
-> Test backend ( cd backend/ && pnpm test)
-> Start backend (cd backend/ && pnpm dev)
-
+> cd into repository
+> run `docker compose up`
+> go to site URL: http://localhost:88
