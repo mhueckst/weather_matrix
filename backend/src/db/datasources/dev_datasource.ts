@@ -24,7 +24,7 @@ export const AppDataSource = new DataSource({
 	],
 	// migrations: [],
 	// DANGER DANGER our convenience will nuke production data!
-	synchronize: false,
+	synchronize: true,
 	migrations: {
 		migrations1677964975879
 	}
