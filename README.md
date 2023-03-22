@@ -24,7 +24,7 @@ Screenshot:
 
 # Troubleshooting: 
 - if you get an error about exposing a port < 1024, you can run: 
-`sudo setcap cap_net_bind_service=ep $(which rootlesskit)`
-`systemctl --user restart docker`
+-`sudo setcap cap_net_bind_service=ep $(which rootlesskit)`
+-`systemctl --user restart docker`
 
 
