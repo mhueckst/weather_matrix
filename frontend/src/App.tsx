@@ -4,7 +4,9 @@ import { useAuth0 } from '@auth0/auth0-react'
 import LoginButton from "./login";
 import LogoutButton from "./logout";
 import Profile from "./profile";
-import {Icons, Locations, Seeder} from "./Components";
+// import {Seeder} from "./Components";
+// import {Icons} from "./Components"
+import {Forecasts} from "./Components";
 
 function App() {
     const {isAuthenticated} = useAuth0();
@@ -16,19 +18,20 @@ function App() {
 
             <h1>PNW Weather Matrix</h1>
             {!isAuthenticated ? (
-                    <div>
-                        <p style={{ fontSize: "1.5rem"}}>Please Login.</p>
-                        <LoginButton/>
-                    </div>
+                <div>
+                    <p style={{ fontSize: "1.5rem"}}>Please Login.</p>
+                    <LoginButton/>
+                </div>
                 ) :
                 <div>
                     <LogoutButton/>
                     {/*<Profile/>*/}
                 </div>
             }
-            <Seeder/>
-            <Icons/>
-            <Locations/>
+            {/*<Seeder/>*/}
+            {/*<Icons/>*/}
+            <Forecasts/>
+            {/*<Locations/>*/}
 
         </div>
     )

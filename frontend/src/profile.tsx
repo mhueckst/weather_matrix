@@ -8,6 +8,7 @@ const Profile = () => {
     //     return <div>Loading ...</div>;
     // }
 
+    // @ts-ignore
     return (
         isAuthenticated && (
             <div>
