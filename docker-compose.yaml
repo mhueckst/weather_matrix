@@ -6,7 +6,7 @@ services:
     build: ./frontend/
     restart: always
     ports:
-      - "88:5173" # We need to map here for convenience, so we don't conflict with a potential possible local server
+      - "88:5173"
     environment:
       - VITE_BACKEND_IP=backend
       - VITE_BACKEND_PORT=8080
