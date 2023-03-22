@@ -5,6 +5,7 @@ The data is fetched using the api.weather.gov, the NWS forecast API.
 
 The site uses a postgres backend to hold the location data for the forecast fetches, and uses a Django microservice to 
 populate the database with the location data. 
+In addition, it uses the auth0-react-sdk to authenticate a user (though this functionally does nothing). 
 
 Everything is containerized, and can be run by simply following the instructions below. 
 
