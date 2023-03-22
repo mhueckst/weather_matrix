@@ -73,7 +73,7 @@ export async function weatherMatrix_routes(app: FastifyInstance): Promise<void> 
 			item.icons = icons[i];
 			objList.push(item)
 		}
-		console.log(objList)
+		// console.log(objList)
 		reply.send(objList);
 	});
 
